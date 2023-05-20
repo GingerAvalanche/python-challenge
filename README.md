@@ -1,4 +1,4 @@
-# Homework Assignment 2 - Stock Analysis VBA Script
+# Homework Assignment 3 - Financial Analysis and Election Analysis Python Scripts
 
 ## Description
 
