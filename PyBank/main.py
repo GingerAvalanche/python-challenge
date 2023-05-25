@@ -36,7 +36,7 @@ def main():
         net_income: int = 0
 
         for line in csvreader:
-            income = int(line[field_names["Profit/Losses"]])
+            income = int(line["Profit/Losses"])
             net_total += income
             net_income = income - prev_income
 
@@ -46,11 +46,11 @@ def main():
 
                 if net_income > greatest_inc:
                     greatest_inc = net_income
-                    inc_month = line[field_names["Date"]]
+                    inc_month = line["Date"]
 
                 if net_income < greatest_dec:
                     greatest_dec = net_income
-                    dec_month = line[field_names["Date"]]
+                    dec_month = line["Date"]
 
             prev_income = income
 
@@ -59,20 +59,15 @@ def main():
 
     avg_change: int = sum(income_changes) / len(income_changes)
 
-    analysis: str = f"""Financial Analysis
-
-----------------------------
-
-Total Months: {total_months}
-
-Total: ${net_total}
-
-Average Change: ${avg_change:.2f}
-
-Greatest Increase in Profits: {inc_month} (${greatest_inc})
-
-Greatest Decrease in Profits: {dec_month} (${greatest_dec})
-"""
+    analysis: str = (
+        "Financial Analysis\n\n"
+        "----------------------------\n\n"
+        f"Total Months: {total_months}\n\n"
+        f"Total: ${net_total}\n\n"
+        f"Average Change: ${avg_change:.2f}\n\n"
+        f"Greatest Increase in Profits: {inc_month} (${greatest_inc})\n\n"
+        f"Greatest Decrease in Profits: {dec_month} (${greatest_dec})\n"
+    )
 
     print(analysis)
 

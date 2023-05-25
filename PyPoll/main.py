@@ -22,10 +22,10 @@ def main():
         csvreader = DictReader(csv, fieldnames=field_names)
 
         for line in csvreader:
-            if not line[field_names["Candidate"]] in vote_data:
-                vote_data[line[field_names["Candidate"]]] = 0
+            if not line["Candidate"] in vote_data:
+                vote_data[line["Candidate"]] = 0
 
-            vote_data[line[field_names["Candidate"]]] += 1
+            vote_data[line["Candidate"]] += 1
 
     total_votes: int = sum(vote_data.values())
 
@@ -35,16 +35,22 @@ def main():
 
     winner: str = [k for (k, v) in vote_data.items() if v == max(vote_data.values())][0]
 
-    nl = '\n'
-    analysis: str = f"""Election Results
--------------------------
-Total Votes: {total_votes}
--------------------------
-{(nl.join(list(map(lambda c_v: f'{c_v[0]}: {percent_data[c_v[0]]:.3f}% ({c_v[1]})', vote_data.items()))))}
--------------------------
-Winner: {winner}
--------------------------
-"""
+    candidate_summary = '\n'.join(
+        list(
+            map(lambda c_v: f'{c_v[0]}: {percent_data[c_v[0]]:.3f}% ({c_v[1]})', vote_data.items())
+        )
+    )
+    analysis: str = (
+        "Election Results\n"
+        "-------------------------\n"
+        f"Total Votes: {total_votes}\n"
+        "-------------------------\n"
+        f"{candidate_summary}\n"
+        "-------------------------\n"
+        f"Winner: {winner}\n"
+        "-------------------------\n"
+    )
+
     print(analysis)
 
     Path("analysis/analysis.txt").write_text(analysis,encoding="utf-8")
