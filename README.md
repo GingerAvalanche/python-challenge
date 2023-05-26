@@ -22,6 +22,8 @@ The `PyPoll` script collects the following data:
 
 ## Notes
 
+Both scripts are intended to be run from within their respective folder, not from within the root folder.
+
 Comments are provided at the function level, but my code was designed to be self-commenting, so the only mid-function comments are things that would not have been obvious from variable names and code behavior.
 
 ### Sources
